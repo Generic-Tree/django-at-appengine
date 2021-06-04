@@ -1,9 +1,13 @@
-# Django Project
+# Django Project at AppEngine
 > This intends to be an [readme-documented][-0], [open-source-licensed][-1], [semantic-versioned][-2],
 [conventional-committed][-3] and [changelogged][-4] git repository starting point
 for the development of a brand-new [twelve-factor][-5] Django project
 
 A straightforward beginning for an open-source Django project repository
+
+Beside brings GAE's expected file system structure, generic-named powered-up Django project base
+and useful Makefile targets to help development process, it also provides deploy-on-push automation 
+through the use of [Google's official deploy-appengine][>5] Github action.
 
 [-0]: https://www.makeareadme.com/ "Make a README"
 [-1]: https://choosealicense.com/licenses/ "Choose a License"
@@ -16,6 +20,10 @@ A straightforward beginning for an open-source Django project repository
 [>2]: https://www.repostatus.org "Repo maintenance status"
 [>3]: https://choosealicense.com/licenses/gpl-3.0/ "GPL 3.0 License description"
 [>4]: https://docs.djangoproject.com/en/3.2/intro/tutorial01/ "Django tutorial"
+[>5]: https://github.com/google-github-actions/deploy-appengine "Github action: Deploy App Engine"
+[>6]: https://console.developers.google.com/apis/api/appengine.googleapis.com "Google Cloud Console: App Engine Admin API"
+[>7]: https://console.cloud.google.com/iam-admin/serviceaccounts "Google Cloud Console: Service Accounts"
+[>8]: https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets "GitHub Docs: Secrets"
 
 [!1]: https://github.com/generic-tree/root/generate "Github repository's template generation URL"
 
@@ -65,6 +73,15 @@ $ . venv/bin/activate
 Finally, you are ready to create [your Django's first app][>4]
 and proceed developing your application.
 
+### Continuos deployment setup
+You will need to have a *Google Cloud Project* configured.
+So, through its console, enable the [App Engine Admin API][>6]
+and also set up a [Service Account][>7] to your project,
+registering its key into your fresh-repo [secrets][>8]
+as `GCP_SA_KEY`.
+
+For more details, check [deploy appengine][>5] action description. 
+
 ### Repo publication
 After all, you should make this project your own: \
 Write a good README to present it to the world. \
@@ -83,18 +100,27 @@ This project shortens a repository start setup, considering:
     * [Semantic Versioning][-2]
     * [Conventional Commit][-3]
     * [Keep a Changelog][-4]
-    
+
 It also powers up development workflow by:
-* Inclusion of an appropriate .gitignore file
+* Inclusion of an appropriate .gitignore and .gcloudignore files
 * Inclusion of a minimal requirements file
 * Inclusion of a proficient Makefile that improve development management
 * Inclusion of preconfigured Django project settings functionalities
+* Inclusion of a structed app.yaml (App Engine service settings) file
+
+And configures continuous delivery workflow to:
+* Deploy application on Google App Engine
 
 ### Folder structure
 ```
 .
 ├── .git/                       Version control system folder
+├── .github                     Github repo's configuration directory
+│   └── workflows               Continuous integration settings
+│       └── deploy.yml          Deploy-on-push automation descriptor
+├── .gcloudignore               GCP ignored files manifest
 ├── .gitignore                  VCS ignored files manifest
+├── app.yml                     App Engine service settings
 ├── CHANGELOG.md                Release notes description
 ├── LICENSE                     License file
 ├── Makefile                    Development management facilities
@@ -113,3 +139,4 @@ It has reached a stable, usable state and is being **actively developed**.
 
 ## License [![][B3]][>3]
 This project is published under the permissions established by [GNU General Public License v3.0][>3].
+
